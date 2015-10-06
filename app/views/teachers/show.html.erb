@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
+<% if session[:logged_in_teacher] %>
+  <p>
+    <strong>Student:</strong>
+    <%= @teacher.student_id %>
+  </p>
 
-<p>
-  <strong>Student:</strong>
-  <%= @teacher.student_id %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @teacher.name %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @teacher.name %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @teacher.email %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @teacher.email %>
-</p>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @teacher.password_digest %>
-</p>
+  <%= link_to 'Edit', edit_teacher_path(@teacher) %> |
+  <%= link_to 'Back', teachers_path %>
+<% else %>
 
-<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
-<%= link_to 'Back', teachers_path %>
+  You must log in to view this page.
+
+<% end %>
