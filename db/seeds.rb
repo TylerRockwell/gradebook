@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+poak = Teacher.create!(name: "Professor Oak", email: "poak@example.com")
+poak.password = "hunter2"
+poak.save
