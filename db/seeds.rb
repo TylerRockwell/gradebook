@@ -7,3 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 poak = Teacher.create!(name: "Professor Oak", email: "poak@example.com", password: "hunter2")
+
+ash = Student.create!(name: "Ash Ketchum", email: "ak@example.com", password: "pikachu")
+
+delia = Parent.create!(name: "Delia Ketchum", email: "dk@example.com", password: "poak")
+
+poak.students << ash
+
+ash.parents << delia
+
+poak.save
+ash.save

@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Parent</th>
+      <th>Teacher</th>
       <th>Grade</th>
       <th>Name</th>
       <th>Email</th>
@@ -17,8 +17,7 @@
   <tbody>
     <% @students.each do |student| %>
       <tr>
-        <td><%= student.parent_id %></td>
-        <td><%= student.grade_id %></td>
+        <td><%= student.teacher.name %></td>
         <td><%= student.name %></td>
         <td><%= student.email %></td>
         <td><%= student.password_digest %></td>

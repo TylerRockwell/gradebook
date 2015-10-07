@@ -1,14 +1,13 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?
 
   # GET /teachers
-  # GET /teachers.json
   def index
     @teachers = Teacher.all
   end
 
   # GET /teachers/1
-  # GET /teachers/1.json
   def show
   end
 
@@ -22,7 +21,6 @@ class TeachersController < ApplicationController
   end
 
   # POST /teachers
-  # POST /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
       if @teacher.save
@@ -33,7 +31,6 @@ class TeachersController < ApplicationController
   end
 
   # PATCH/PUT /teachers/1
-  # PATCH/PUT /teachers/1.json
   def update
       if @teacher.update(teacher_params)
         redirect_to @teacher, notice: 'Teacher was successfully updated.'
@@ -43,7 +40,6 @@ class TeachersController < ApplicationController
   end
 
   # DELETE /teachers/1
-  # DELETE /teachers/1.json
   def destroy
     @teacher.destroy
       redirect_to teachers_url, notice: 'Teacher was successfully destroyed.'
@@ -57,6 +53,10 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:student_id, :name, :email, :password_digest)
+      params.require(:teacher).permit(:student_id, :name, :email, :password)
+    end
+
+    def logged_in?
+      redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end

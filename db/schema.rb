@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20151006182013) do
 
   create_table "grades", force: :cascade do |t|
+    t.integer  "student_id"
     t.string   "assignment_name"
     t.string   "grade"
     t.datetime "created_at",      null: false
@@ -21,6 +22,7 @@ ActiveRecord::Schema.define(version: 20151006182013) do
   end
 
   create_table "parents", force: :cascade do |t|
+    t.integer  "student_id"
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
@@ -29,8 +31,7 @@ ActiveRecord::Schema.define(version: 20151006182013) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.integer  "grade_id"
+    t.integer  "teacher_id"
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"

@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?
+
 
   # GET /students
   # GET /students.json
@@ -15,6 +17,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
+    @student.teacher = Teacher.find(params[:format])
   end
 
   # GET /students/1/edit
@@ -25,16 +28,11 @@ class StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params)
-
-    respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: @student }
+        redirect_to @student, notice: 'Student was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /students/1
@@ -69,6 +67,10 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:parent_id, :grade_id, :name, :email, :password_digest)
+      params.require(:student).permit(:teacher_id, :name, :email, :password)
+    end
+
+    def logged_in?
+      redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end

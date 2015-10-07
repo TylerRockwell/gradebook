@@ -11,14 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
-  </div>
-  <div class="field">
-    <%= f.label :grade_id %><br>
-    <%= f.number_field :grade_id %>
-  </div>
+  <%= f.hidden_field :teacher_id %>
+  
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -28,8 +22,8 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :password_digest %><br>
-    <%= f.text_field :password_digest %>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
   </div>
   <div class="actions">
     <%= f.submit %>
