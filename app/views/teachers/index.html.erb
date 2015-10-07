@@ -13,13 +13,14 @@
           <thead>
             <th>Name</th>
             <th>Email</th>
-            <th colspan="3"></th>
+            <th colspan="5"></th>
           </thead>
         <% teacher.students.each do |student| %>
           <tr>
             <td><%= student.name %></td>
             <td><%= student.email %></td>
-            <%= link_to 'Add Parent', new_parent_path(student) %>
+            <td><%= link_to 'Add Parent', new_parent_path(student) %></td>
+            <td><%= link_to 'Add Grade', new_grade_path(student) %></td>
             <td><%= link_to 'Show', student %></td>
             <td><%= link_to 'Edit', edit_student_path(student) %></td>
             <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>

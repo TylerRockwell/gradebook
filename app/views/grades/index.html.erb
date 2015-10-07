@@ -7,6 +7,7 @@
     <tr>
       <th>Assignment name</th>
       <th>Grade</th>
+      <th>Student name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= grade.assignment_name %></td>
         <td><%= grade.grade %></td>
+        <td><%= grade.student.name%></td>
         <td><%= link_to 'Show', grade %></td>
         <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
         <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>

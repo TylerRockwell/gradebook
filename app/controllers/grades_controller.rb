@@ -17,6 +17,7 @@ class GradesController < ApplicationController
   # GET /grades/new
   def new
     @grade = Grade.new
+    @grade.student = Student.find(params[:format])
   end
 
   # GET /grades/1/edit
@@ -60,7 +61,7 @@ class GradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grade_params
-      params.require(:grade).permit(:assignment_name, :grade)
+      params.require(:grade).permit(:student_id, :assignment_name, :grade)
     end
 
     def logged_in?

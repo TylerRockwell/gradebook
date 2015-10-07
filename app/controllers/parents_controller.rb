@@ -16,6 +16,7 @@ class ParentsController < ApplicationController
   # GET /parents/new
   def new
     @parent = Parent.new
+    @parent.student = Student.find(params[:format])
   end
 
   # GET /parents/1/edit
@@ -58,10 +59,11 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:name, :email, :password_digest)
+      params.require(:parent).permit(:student_id, :name, :email, :password)
     end
 
     def logged_in?
+      #Change to return true/false - redirect from previous method
       redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end
