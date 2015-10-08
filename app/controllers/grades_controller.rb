@@ -1,12 +1,18 @@
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
+  before_action :teacher?, except: [:index]
+
 
 
   # GET /grades
   # GET /grades.json
   def index
-    @grades = Grade.all
+    if @logged_in_student
+      @grades = Grade.where("student_id = ?", session[:user_id])
+    elsif @logged_in_parent
+      @grades = Grade.where("student_id = ?", @logged_in_parent.student.id)
+    end
   end
 
   # GET /grades/1
@@ -28,12 +34,11 @@ class GradesController < ApplicationController
   # POST /grades.json
   def create
     @grade = Grade.new(grade_params)
-
-      if @grade.save
-        redirect_to @grade, notice: 'Grade was successfully created.'
-      else
-        render :new
-      end
+    if @grade.save
+      redirect_to @grade, notice: 'Grade was successfully created.'
+    else
+      render :new
+    end
   end
 
   # PATCH/PUT /grades/1
@@ -62,9 +67,5 @@ class GradesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def grade_params
       params.require(:grade).permit(:student_id, :assignment_name, :grade)
-    end
-
-    def logged_in?
-      redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end

@@ -8,7 +8,9 @@
       <th>Assignment name</th>
       <th>Grade</th>
       <th>Student name</th>
-      <th colspan="3"></th>
+      <% if @logged_in_teacher %>
+        <th colspan="3"></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -18,9 +20,11 @@
         <td><%= grade.assignment_name %></td>
         <td><%= grade.grade %></td>
         <td><%= grade.student.name%></td>
-        <td><%= link_to 'Show', grade %></td>
-        <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
-        <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if @logged_in_teacher %>
+          <td><%= link_to 'Show', grade %></td>
+          <td><%= link_to 'Edit', edit_grade_path(grade) %></td>
+          <td><%= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,6 @@
 
 <br>
 
-<%= link_to 'New Grade', new_grade_path %>
+<% if @logged_in_teacher %>
+  <%= link_to 'New Grade', new_grade_path %>
+<% end %>

@@ -23,26 +23,26 @@ class TeachersController < ApplicationController
   # POST /teachers
   def create
     @teacher = Teacher.new(teacher_params)
-      if @teacher.save
-        redirect_to @teacher, notice: 'Teacher was successfully created.'
-      else
-        render :new
-      end
+    if @teacher.save
+      redirect_to @teacher, notice: 'Teacher was successfully created.'
+    else
+      render :new
+    end
   end
 
   # PATCH/PUT /teachers/1
   def update
-      if @teacher.update(teacher_params)
-        redirect_to @teacher, notice: 'Teacher was successfully updated.'
-      else
-        render :edit
-      end
+    if @teacher.update(teacher_params)
+      redirect_to @teacher, notice: 'Teacher was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   # DELETE /teachers/1
   def destroy
     @teacher.destroy
-      redirect_to teachers_url, notice: 'Teacher was successfully destroyed.'
+    redirect_to teachers_url, notice: 'Teacher was successfully destroyed.'
   end
 
   private
@@ -54,9 +54,5 @@ class TeachersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
       params.require(:teacher).permit(:student_id, :name, :email, :password)
-    end
-
-    def logged_in?
-      redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end

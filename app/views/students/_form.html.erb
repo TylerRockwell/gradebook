@@ -11,16 +11,21 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :teacher_id %>
-  
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
+  <%if session[:account_type] == "teacher" %>
+
+    <%= f.hidden_field :teacher_id %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </div>
+
+  <% end %>
+
   <div class="field">
     <%= f.label :password %><br>
     <%= f.password_field :password %>

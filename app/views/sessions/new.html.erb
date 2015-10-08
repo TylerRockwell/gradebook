@@ -1,5 +1,4 @@
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
+
 
 
 <%= form_for :sessions, url:login_path do |f| %>
@@ -8,9 +7,23 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+
   <div class="field">
     <%= f.label :password %><br>
     <%= f.password_field :password %>
+  </div>
+
+  <p id="account_type"> Account Type </p>
+
+  <div class="field">
+    <%= f.radio_button :account_type, 'teacher' %>
+    <%= label :account_type_teacher, 'Teacher' %>
+
+    <%= f.radio_button :account_type, 'student' %>
+    <%= label :account_type_teacher, 'Student' %>
+
+    <%= f.radio_button :account_type, 'parent' %>
+    <%= label :account_type_teacher, 'Parent' %>
   </div>
 
   <div class="actions">

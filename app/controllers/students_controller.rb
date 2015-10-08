@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   before_action :logged_in?
+  before_action :teacher?, except: [:edit, :update, :show]
 
 
   # GET /students
@@ -22,30 +23,27 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    redirect_to edit_parent_path, notice: "Perhaps this is where you were trying to go." if @logged_in_parent
   end
 
   # POST /students
   # POST /students.json
   def create
     @student = Student.new(student_params)
-      if @student.save
-        redirect_to @student, notice: 'Student was successfully created.'
-      else
-        render :new
-      end
+    if @student.save
+      redirect_to @student, notice: 'Student was successfully created.'
+    else
+      redirect_to new_student_path, notice: 'Invalid information.'
+    end
   end
 
   # PATCH/PUT /students/1
   # PATCH/PUT /students/1.json
   def update
-    respond_to do |format|
-      if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
-        format.json { render :show, status: :ok, location: @student }
-      else
-        format.html { render :edit }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.update(student_params)
+      redirect_to @student, notice: 'Student was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -53,10 +51,7 @@ class StudentsController < ApplicationController
   # DELETE /students/1.json
   def destroy
     @student.destroy
-    respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to students_url, notice: 'Student was successfully destroyed.'
   end
 
   private
@@ -68,9 +63,5 @@ class StudentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
       params.require(:student).permit(:teacher_id, :name, :email, :password)
-    end
-
-    def logged_in?
-      redirect_to login_path, notice: "You must log in to do that" unless session[:logged_in_teacher]
     end
 end

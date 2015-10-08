@@ -3,8 +3,24 @@
 		<%= link_to "Gradebook", root_path, id: "logo" %>
 		<nav>
 			<ul class="nav navbar-nav navbar-right">
-				<li> <%= link_to "Home",   root_path %> </li>
-				<li> <%= link_to "Log in", login_path %> </li>
+				<li> <%= link_to "Home", root_path %> </li>
+
+
+				<% if session[:account_type] %>
+					<% if @logged_in_teacher %>
+							<li> <%= link_to "Edit Information", edit_teacher_path(@logged_in_teacher) %>
+					<% end %>
+					<% if @logged_in_parent %>
+							<li> <%= link_to "Change Password", edit_parent_path(@logged_in_parent) %>
+					<% end %>
+					<% if @logged_in_student %>
+							<li> <%= link_to "Change Password", edit_student_path(@logged_in_student) %>
+					<% end %>
+					<li> <%= link_to "View Grades", grades_path %></li>
+					<li> <%= link_to "Log out", logout_path, method: :delete %></li>
+				<% else %>
+					<li> <%= link_to "Log in", login_path %> </li>
+				<% end %>
 			</ul>
 		</nav>
 	</div>
